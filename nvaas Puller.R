@@ -78,3 +78,31 @@ for(i in 1:395){
 
 df_curated <- unique(df_curated)
 
+df_curated <- df_curated[-which(df_curated[,1] == ""),]
+df_curated <- df_curated[-876,]
+
+for(i in 1:ncol(df_curated)) df_curated[,i] <- as.character(df_curated[,i])
+
+df_curated[df_curated[,3] == "2104",3] <- "2014"
+df_curated[df_curated[,3] == "2114",3] <- "2014"
+df_curated <- df_curated[-which(df_curated[,3] %in% c("0012", "0013", "1408561")),]
+df_curated <- df_curated[-which(df_curated[,3] %in% c("", "1901", "1905", "1906", "1907", "1922", "1927", "1928")),]
+
+df_curated[,3] <- as.integer(df_curated[,3])
+df_curated[,2] <- as.factor(df_curated[,2])
+
+temp <- table(df_curated[,1])
+temp <- sort(temp)
+temp_multiples <- temp[temp > 1] 
+
+df_reps <- df_curated[df_curated[,1] %in% names(temp_multiples),]
+df_albums <- df_curated[!df_curated[,1] %in% names(temp_multiples),]
+
+hh_tracks <- list()
+for(i in 1:nrow(df_albums)){
+  hh_tracks[[i]] <- read_html(df_albums[i,4])
+  print(i)
+}
+
+
+
