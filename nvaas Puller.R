@@ -104,5 +104,10 @@ for(i in 1:nrow(df_albums)){
   print(i)
 }
 
-
+temp_test <- unlist(
+  lapply(
+    1:1000,
+    function(i) read_html(df_albums[i,4])
+    )
+)
 
