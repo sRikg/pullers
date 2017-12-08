@@ -10,4 +10,17 @@ df <- df[,c(1:2)]
 rm(data)
 
 hh_pages <- list()
-for(i in 1:length(df)) hh_albums[[i]] <- read_html(url_catalouge[i])
+hh_pages <- lapply(
+  1:nrow(df),
+  function(i) read_html(df[i,2])
+  )
+
+for(i in 1:nrow(df)){
+  hh_pages[[i]] <- read_html(df[i,2])
+  print(i)
+}
+
+html_nodes(
+    hh_pages[[1]], 
+    xpath = "//body//div//div//div//div//div//div//div//div//div//div//div//div//div//span//div//span//span//hl//a")
+
