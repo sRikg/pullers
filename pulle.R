@@ -80,3 +80,12 @@ for(j in c(1:253, 255:296, 302:428, 430:length(track_list))){
      )
 }
 
+for(j in c(1:253, 255:296, 302:428, 430:length(track_list))){
+    tracklist[[j]][,2] <- sapply(
+        1:nrow(tracklist[[j]]),
+        function(i) sum(as.integer(unlist(strsplit(
+            tracklist[[j]][i,2],
+            split= ":"))) * c(60,1))
+        )
+    }
+
